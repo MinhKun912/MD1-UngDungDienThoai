@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="iphone">
+    <label id="pin">Pin :100%</label><br>
+    <input id="inp" type="text" placeholder="Day la man hinh" style="height:50px "><br>
+ 
+
+    <button onclick="moMon()">on</button>
+    <button onclick="khoaMon()">off</button>
+
+    <button onclick="hienthi()">Gui tin</button>
+
+    <button onclick="main6()">Sac</button>
+
+</div>
+<div class="nokia">
+    <label id="pin2">Pin :100%</label><br>
+    <input oninput="hienthi()" id="dis" type="text" placeholder="Day la man hinh2" style="height:50px "><br>
+
+
+    <button onclick="main()">AC</button>
+    <button onclick="main1()">2</button>
+    <button onclick="main3()">3</button>
+
+    <button id="nhanTinhNhan" onclick="main5()">5</button>
+
+</div>
+
+
+<script>
+
+    let TinNhan = document.getElementById('inp').value;
+    let HopThuDen = TinNhan.slice();
+    function khoaMon(){
+        document.getElementById('inp').disabled=true;
+    }    function moMon(){
+        document.getElementById('inp').disabled=false;
+        DienThoai.SetBattery(DienThoai.GetBattery() - 1)
+        document.getElementById('pin').innerHTML = "Pin" + ":" + DienThoai.GetBattery() + "%";
+    }
+
+    function hienthi() {
+        document.getElementById('dis').value = document.getElementById('inp').value;
+        DienThoai.SetBattery(DienThoai.GetBattery() - 1)
+        document.getElementById('pin').innerHTML = "Pin" + ":" + DienThoai.GetBattery() + "%";
+    }
+    function HTD(){
+        document.getElementById('nhanTinhNhan').innerHTML+=HopThuDen+"<br>"
+    }
+
+
+    class phone {
+        battery;
+        messenger;
+        messengerData;
+        charge;
+        messengerSent;
+
+        constructor(battery, messenger, messengerData, messengerSent, charge) {
+            this.battery = battery;
+            this.messenger = messenger;
+            this.messengerData = messengerData;
+            this.messengerSent = messengerSent;
+            this.charge = charge;
+
+
+            this.charge = function () {
+                alert('SacPin')
+                DienThoai.SetBattery(DienThoai.GetBattery() + 4)
+                console.log(DienThoai.GetBattery())
+            }
+            this.tunrOn = function () {
+                alert('on')
+                battery--;
+
+            }
+            this.tunrOff = function () {
+                alert('Off')
+                document.getElementById('inp').ariaDisabled
+
+            }
+            this.messenger = function () {
+                prompt('Nhap Tin Nhan')
+            }
+            this.messengerData = function () {
+                alert('Hop Thu Den')
+            }
+            this.messengerSent = function () {
+                alert("Tin da gui")
+            }
+        }
+
+        SetBattery(battery) {
+            this.battery = battery;
+        }
+
+        GetBattery() {
+            return this.battery;
+        }
+
+    }
+
+    let DienThoai = new phone(100, 10, 10, 100)
+
+    function main() {
+        DienThoai.tunrOn();
+
+        DienThoai.SetBattery(DienThoai.GetBattery() - 1)
+        document.getElementById('pin').innerHTML = "Pin" + ":" + DienThoai.GetBattery() + "%";
+
+    }
+
+    function main1() {
+        DienThoai.tunrOff();
+    }
+
+    function main3() {
+        DienThoai.messenger()
+
+
+    }
+
+    function main4() {
+        DienThoai.messengerSent()
+    }
+
+    function main5() {
+        DienThoai.messengerData();
+    }
+
+    function main6() {
+        DienThoai.charge();
+        document.getElementById('pin').innerHTML = "Pin" + ":" + DienThoai.GetBattery() + "%";
+    }
+
+
+</script>
+</body>
+</html>
